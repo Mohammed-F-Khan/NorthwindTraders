@@ -24,7 +24,7 @@ public class App {
 
         // creates a prepared statement
         PreparedStatement statement = connection.prepareStatement(
-                "SELECT ProductName FROM Products"
+                "SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM products"
         );
 
         // executes query
@@ -32,8 +32,18 @@ public class App {
 
         // Loop throughs the results
         while (results.next()) {
+            // gets each value from the current row
+            int id = results.getInt("ProductID");
             String name = results.getString("ProductName");
-            System.out.println(name);
+            double price = results.getDouble("UnitPrice");
+            int stock = results.getInt("UnitsInStock");
+
+            // prints the product information to the screen
+            System.out.println("Product Id: " + id);
+            System.out.println("Product Name: " + name);
+            System.out.println("Product Price: " + price);
+            System.out.println("Product Stock: " + stock);
+            System.out.println("----------------------------");
         }
 
         // close everything
